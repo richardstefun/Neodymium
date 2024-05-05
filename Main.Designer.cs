@@ -44,6 +44,7 @@ namespace WinWin
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            label7 = new Label();
             SuspendLayout();
             // 
             // notifyIcon1
@@ -68,7 +69,7 @@ namespace WinWin
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Location = new Point(12, 33);
+            label2.Location = new Point(12, 36);
             label2.Name = "label2";
             label2.Size = new Size(253, 15);
             label2.TabIndex = 1;
@@ -92,9 +93,9 @@ namespace WinWin
             label4.AutoSize = true;
             label4.Location = new Point(12, 157);
             label4.Name = "label4";
-            label4.Size = new Size(274, 15);
+            label4.Size = new Size(151, 30);
             label4.TabIndex = 3;
-            label4.Text = "Arrow keys move windows to coresponding halves";
+            label4.Text = "Arrow keys move windows \r\nto coresponding halves";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label5
@@ -119,12 +120,26 @@ namespace WinWin
             label6.Text = "X   - next screen";
             label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 8.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label7.ForeColor = SystemColors.ControlLight;
+            label7.Location = new Point(185, 161);
+            label7.Name = "label7";
+            label7.Size = new Size(102, 26);
+            label7.TabIndex = 6;
+            label7.Text = "v0.1.0\r\nRichard Stefun 2024";
+            label7.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(306, 181);
+            ClientSize = new Size(301, 196);
+            Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -133,8 +148,7 @@ namespace WinWin
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            MaximumSize = new Size(322, 220);
-            MinimumSize = new Size(322, 220);
+            MaximumSize = new Size(320, 250);
             Name = "Main";
             Text = "Neodymium";
             Load += Form1_Load;
@@ -154,5 +168,6 @@ namespace WinWin
         private Label label4;
         private Label label5;
         private Label label6;
+        private Label label7;
     }
 }
