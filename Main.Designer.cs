@@ -130,7 +130,7 @@ namespace WinWin
             label7.Name = "label7";
             label7.Size = new Size(102, 26);
             label7.TabIndex = 6;
-            label7.Text = "v0.1.0\r\nRichard Stefun 2024";
+            label7.Text = "v0.1.1\r\nRichard Stefun 2024";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
             // Main
