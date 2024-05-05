@@ -83,7 +83,7 @@ namespace WinWin
             label3.Name = "label3";
             label3.Size = new Size(96, 90);
             label3.TabIndex = 2;
-            label3.Text = "U - top left\r\nI   - top right\r\nJ   - bottom left\r\nK  - bottom right\r\nC  - center\r\nEnter - full";
+            label3.Text = "U - top left\r\nI   - top right\r\nJ   - bottom left\r\nK  - bottom right\r\nC  - center\r\nEnter - fill";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4
