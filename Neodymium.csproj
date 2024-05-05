@@ -6,6 +6,19 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>BF99FBE07C6744A1.ico</ApplicationIcon>
+    <PackageIcon>BF99FBE07C6744A1.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="BF99FBE07C6744A1.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Downloads\logo_magnet_Folder\BF99FBE07C6744A1.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

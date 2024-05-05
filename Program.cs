@@ -1,9 +1,14 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace WinWin
 {
     internal static class Program
     {
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetForegroundWindow(IntPtr hWnd);
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -13,10 +18,19 @@ namespace WinWin
 
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Main());
+            bool createdNew = true;
+            using (Mutex mutex = new Mutex(true, "Neodymium", out createdNew))
+            {
+                if (createdNew)
+                {
+                    ApplicationConfiguration.Initialize();
+                    Application.Run(new Main());
+                }
+                else
+                {
+                    MessageBox.Show("If the window is not available, check the tray icon.", "Neodymium is already running!");
+                }
+            }
             
         }
     }

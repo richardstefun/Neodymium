@@ -132,7 +132,7 @@ namespace WinWin
                 case Shortcuts.WIDER:
                     var newX = (info.window.Left - (inc / 2) >= info.screen.Bounds.X ? info.window.Left - (inc/2) : info.screen.WorkingArea.Left);
                     var newWidth = info.window.Width + inc;
-                    if (info.window.Right*1.25 + inc > width)
+                    if (info.window.Right + inc > width)
                     {
                         newWidth = width - info.window.Left + (inc / 2);
                     }
@@ -149,7 +149,8 @@ namespace WinWin
                     break;
                 case Shortcuts.NEXT_DISPLAY:
                     var next = NextScreen(info.screen);
-                    MoveWindow(handle, next.Bounds.X, next.Bounds.Y, info.window.Width, info.window.Height, true);
+                    //MoveWindow(handle, next.Bounds.X, next.Bounds.Y, info.window.Width, info.window.Height, true);
+                    MoveWindow(handle, (next.WorkingArea.X + next.WorkingArea.Width/2) - (info.window.Width / 2), (next.WorkingArea.Y + next.WorkingArea.Height/2) - (info.window.Height / 2), info.window.Width, info.window.Height, true);
                     break;
             }
         }

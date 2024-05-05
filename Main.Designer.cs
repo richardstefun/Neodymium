@@ -138,7 +138,7 @@ namespace WinWin
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(301, 196);
+            ClientSize = new Size(304, 196);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -148,7 +148,8 @@ namespace WinWin
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            MaximumSize = new Size(320, 250);
+            MaximumSize = new Size(320, 235);
+            MinimumSize = new Size(320, 235);
             Name = "Main";
             Text = "Neodymium";
             Load += Form1_Load;
