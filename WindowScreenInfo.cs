@@ -19,9 +19,6 @@ namespace WinWin
         private static extern nint MonitorFromRect(ref RECT lprc, uint dwFlags);
 
         [DllImport("user32.dll")]
-        private static extern nint MonitorFromWindow(nint hWnd, uint dwFlags);
-
-        [DllImport("user32.dll")]
         private static extern bool GetMonitorInfo(nint hMonitor, ref MONITORINFO lpmi);
 
         [DllImport("user32.dll")]

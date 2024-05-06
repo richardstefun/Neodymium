@@ -58,9 +58,9 @@ namespace WinWin
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
+            label1.Location = new Point(14, 12);
             label1.Name = "label1";
-            label1.Size = new Size(279, 15);
+            label1.Size = new Size(343, 20);
             label1.TabIndex = 0;
             label1.Text = "Neodymium is running. You can minimize me now!";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -69,9 +69,9 @@ namespace WinWin
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Location = new Point(12, 36);
+            label2.Location = new Point(14, 48);
             label2.Name = "label2";
-            label2.Size = new Size(253, 15);
+            label2.Size = new Size(317, 20);
             label2.TabIndex = 1;
             label2.Text = "To manage active window, use Ctrl+Win+Alt +";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -80,9 +80,9 @@ namespace WinWin
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(12, 61);
+            label3.Location = new Point(14, 81);
             label3.Name = "label3";
-            label3.Size = new Size(96, 90);
+            label3.Size = new Size(121, 120);
             label3.TabIndex = 2;
             label3.Text = "U - top left\r\nI   - top right\r\nJ   - bottom left\r\nK  - bottom right\r\nC  - center\r\nEnter - fill";
             label3.TextAlign = ContentAlignment.MiddleLeft;
@@ -91,9 +91,9 @@ namespace WinWin
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(12, 157);
+            label4.Location = new Point(14, 209);
             label4.Name = "label4";
-            label4.Size = new Size(151, 30);
+            label4.Size = new Size(188, 40);
             label4.TabIndex = 3;
             label4.Text = "Arrow keys move windows \r\nto coresponding halves";
             label4.TextAlign = ContentAlignment.MiddleLeft;
@@ -102,9 +102,9 @@ namespace WinWin
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Location = new Point(185, 61);
+            label5.Location = new Point(211, 81);
             label5.Name = "label5";
-            label5.Size = new Size(77, 60);
+            label5.Size = new Size(98, 80);
             label5.TabIndex = 4;
             label5.Text = "W - wider\r\nS   - narrower\r\nQ  - taller\r\nA  - shorter";
             label5.TextAlign = ContentAlignment.MiddleLeft;
@@ -113,9 +113,9 @@ namespace WinWin
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label6.AutoSize = true;
-            label6.Location = new Point(185, 136);
+            label6.Location = new Point(211, 181);
             label6.Name = "label6";
-            label6.Size = new Size(91, 15);
+            label6.Size = new Size(114, 20);
             label6.TabIndex = 5;
             label6.Text = "X   - next screen";
             label6.TextAlign = ContentAlignment.MiddleLeft;
@@ -126,19 +126,19 @@ namespace WinWin
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 8.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label7.ForeColor = SystemColors.ControlLight;
-            label7.Location = new Point(185, 161);
+            label7.Location = new Point(211, 215);
             label7.Name = "label7";
-            label7.Size = new Size(102, 26);
+            label7.Size = new Size(135, 38);
             label7.TabIndex = 6;
             label7.Text = "v0.1.1\r\nRichard Stefun 2024";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(304, 196);
+            ClientSize = new Size(372, 268);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -147,9 +147,10 @@ namespace WinWin
             Controls.Add(label2);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
-            MaximumSize = new Size(320, 235);
-            MinimumSize = new Size(320, 235);
+            MaximumSize = new Size(390, 315);
+            MinimumSize = new Size(390, 315);
             Name = "Main";
             Text = "Neodymium";
             Load += Form1_Load;

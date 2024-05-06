@@ -18,7 +18,47 @@ namespace WinWin
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int Width, int Height, bool Repaint);
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        [Serializable]
+        [StructLayout(LayoutKind.Sequential)]
+        private struct WINDOWPLACEMENT
+        {
+            public int length;
+            public int flags;
+            public int showCmd;
+            public System.Drawing.Point ptMinPosition;
+            public System.Drawing.Point ptMaxPosition;
+            public System.Drawing.Rectangle rcNormalPosition;
+        }
+
+        public static void DeMaximizeActiveWindow(nint hWnd)
+        {
+            if (hWnd != IntPtr.Zero)
+            {
+                WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
+                placement.length = Marshal.SizeOf(placement);
+
+                if (GetWindowPlacement(hWnd, ref placement))
+                {
+                    if (placement.showCmd == SW_SHOWMAXIMIZED)
+                    {
+                        ShowWindow(hWnd, SW_SHOWNORMAL);
+                    }
+                }
+            }
+        }
+
         WindowScreenInfo windowScreenInfo = new WindowScreenInfo();
+
+        private const int SW_SHOWNORMAL = 1;
+        private const int SW_SHOWMINIMIZED = 2;
+        private const int SW_SHOWMAXIMIZED = 3;
 
         const int MODIFIER = 1 + 2 + 8; // Modifier keys codes: Alt = 1, Ctrl = 2, Shift = 4, Win = 8
 
@@ -96,6 +136,7 @@ namespace WinWin
 
             int inc = 50;
 
+            DeMaximizeActiveWindow(handle);
 
             switch (s)
             {
