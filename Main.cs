@@ -60,7 +60,7 @@ namespace WinWin
         private const int SW_SHOWMINIMIZED = 2;
         private const int SW_SHOWMAXIMIZED = 3;
 
-        const int MODIFIER = 1 + 2 + 8; // Modifier keys codes: Alt = 1, Ctrl = 2, Shift = 4, Win = 8
+        const int MODIFIER = 1 + 2 + 8; // Alt = 1, Ctrl = 2, Shift = 4, Win = 8
 
         enum Shortcuts
         {
@@ -85,9 +85,9 @@ namespace WinWin
             RegisterHotKey(this.Handle, (int)Shortcuts.CENTER, MODIFIER, (int)Keys.C);
             RegisterHotKey(this.Handle, (int)Shortcuts.FULL, MODIFIER, (int)Keys.Enter);
             RegisterHotKey(this.Handle, (int)Shortcuts.WIDER, MODIFIER, (int)Keys.W);
-            RegisterHotKey(this.Handle, (int)Shortcuts.TALLER, MODIFIER, (int)Keys.Q);
+            RegisterHotKey(this.Handle, (int)Shortcuts.TALLER, MODIFIER, (int)Keys.E);
             RegisterHotKey(this.Handle, (int)Shortcuts.NARROWER, MODIFIER, (int)Keys.S);
-            RegisterHotKey(this.Handle, (int)Shortcuts.SHORTER, MODIFIER, (int)Keys.A);
+            RegisterHotKey(this.Handle, (int)Shortcuts.SHORTER, MODIFIER, (int)Keys.D);
             RegisterHotKey(this.Handle, (int)Shortcuts.NEXT_DISPLAY, MODIFIER, (int)Keys.X);
         }
 
@@ -202,6 +202,7 @@ namespace WinWin
         {
             var newX = (info.window.Left - (inc / 2) >= info.screen.WorkingArea.X ? info.window.Left - (inc / 2) : info.screen.WorkingArea.Left);
             var newWidth = info.window.Width + inc;
+
             if (info.window.Right + inc > width)
             {
                 newWidth = width - info.window.Left + (inc / 2);

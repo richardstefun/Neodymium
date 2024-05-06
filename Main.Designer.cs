@@ -106,7 +106,7 @@ namespace WinWin
             label5.Name = "label5";
             label5.Size = new Size(98, 80);
             label5.TabIndex = 4;
-            label5.Text = "W - wider\r\nS   - narrower\r\nQ  - taller\r\nA  - shorter";
+            label5.Text = "W - wider\r\nS   - narrower\r\nE  - taller\r\nD  - shorter";
             label5.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label6
@@ -130,7 +130,7 @@ namespace WinWin
             label7.Name = "label7";
             label7.Size = new Size(135, 38);
             label7.TabIndex = 6;
-            label7.Text = "v0.2.0\r\nRichard Stefun 2024";
+            label7.Text = "v0.2.1\r\nRichard Stefun 2024";
             label7.TextAlign = ContentAlignment.MiddleRight;
             // 
             // Main
