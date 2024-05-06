@@ -104,22 +104,15 @@ namespace WinWin
 
         private Screen NextScreen(Screen screen)
         {
-            // Get all available screens
             Screen[] allScreens = Screen.AllScreens;
-
-            // Find the index of the current screen in the array
             int currentIndex = Array.IndexOf(allScreens, screen);
 
             if (currentIndex == -1)
             {
-                // Current screen not found in the list (shouldn't happen with AllScreens, but handle if needed)
                 throw new ArgumentException("The provided screen is not part of the AllScreens collection.");
             }
 
-            // Determine the index of the next screen
             int nextIndex = (currentIndex + 1) % allScreens.Length;
-
-            // Return the next screen
             return allScreens[nextIndex];
         }
 
@@ -134,6 +127,9 @@ namespace WinWin
             int halfWidth = width / 2;
             int halfHeight = height / 2;
 
+            int X = info.screen.WorkingArea.X;
+            int Y = info.screen.WorkingArea.Y;
+
             int inc = 50;
 
             DeMaximizeActiveWindow(handle);
@@ -141,43 +137,37 @@ namespace WinWin
             switch (s)
             {
                 case Shortcuts.TOP_LEFT:
-                    MoveWindow(handle, info.screen.Bounds.X, info.screen.Bounds.Y, halfWidth, halfHeight, true);
+                    MoveWindow(handle, X, Y, halfWidth, halfHeight, true);
                     break;
                 case Shortcuts.TOP_RIGHT:
-                    MoveWindow(handle, info.screen.Bounds.X + halfWidth, info.screen.Bounds.Y, halfWidth, halfHeight, true);
+                    MoveWindow(handle, X + halfWidth, Y, halfWidth, halfHeight, true);
                     break;
                 case Shortcuts.BOTTOM_LEFT:
-                    MoveWindow(handle, info.screen.Bounds.X, info.screen.Bounds.Y + halfHeight, halfWidth, halfHeight, true);
+                    MoveWindow(handle, X, Y + halfHeight, halfWidth, halfHeight, true);
                     break;
                 case Shortcuts.BOTTOM_RIGHT:
-                    MoveWindow(handle, info.screen.Bounds.X + halfWidth, info.screen.Bounds.Y + halfHeight, halfWidth, halfHeight, true);
+                    MoveWindow(handle, X + halfWidth, Y + halfHeight, halfWidth, halfHeight, true);
                     break;
                 case Shortcuts.LEFT:
-                    MoveWindow(handle, info.screen.Bounds.X, info.screen.Bounds.Y, halfWidth, height, true);
+                    MoveWindow(handle, X, Y, halfWidth, height, true);
                     break;
                 case Shortcuts.RIGHT:
-                    MoveWindow(handle, info.screen.Bounds.X + halfWidth, info.screen.Bounds.Y, halfWidth, height, true);
+                    MoveWindow(handle, X + halfWidth, Y, halfWidth, height, true);
                     break;
                 case Shortcuts.TOP:
-                    MoveWindow(handle, info.screen.Bounds.X, info.screen.Bounds.Y, width, halfHeight, true);
+                    MoveWindow(handle, X, Y, width, halfHeight, true);
                     break;
                 case Shortcuts.BOTTOM:
-                    MoveWindow(handle, info.screen.Bounds.X, info.screen.Bounds.Y + halfHeight, width, halfHeight, true);
+                    MoveWindow(handle, X, Y + halfHeight, width, halfHeight, true);
                     break;
                 case Shortcuts.CENTER:
-                    MoveWindow(handle, (info.screen.Bounds.X + halfWidth) - (info.window.Width / 2), (info.screen.Bounds.Y + halfHeight) - (info.window.Height / 2), info.window.Width, info.window.Height, true);
+                    MoveWindow(handle, (X + halfWidth) - (info.window.Width / 2), (Y + halfHeight) - (info.window.Height / 2), info.window.Width, info.window.Height, true);
                     break;
                 case Shortcuts.FULL:
-                    MoveWindow(handle, info.screen.Bounds.X, info.screen.Bounds.Y, width, height, true);
+                    MoveWindow(handle, X, Y, width, height, true);
                     break;
                 case Shortcuts.WIDER:
-                    var newX = (info.window.Left - (inc / 2) >= info.screen.Bounds.X ? info.window.Left - (inc/2) : info.screen.WorkingArea.Left);
-                    var newWidth = info.window.Width + inc;
-                    if (info.window.Right + inc > width)
-                    {
-                        newWidth = width - info.window.Left + (inc / 2);
-                    }
-                    MoveWindow(handle, newX, info.window.Top, newWidth, info.window.Height, true);
+                    MakeWider(handle, info, width, inc);
                     break;
                 case Shortcuts.TALLER:
                     MoveWindow(handle, info.window.Left, info.window.Top - (inc / 2), info.window.Width, info.window.Height + inc, true);
@@ -189,14 +179,35 @@ namespace WinWin
                     MoveWindow(handle, info.window.Left, info.window.Top + (inc / 2), info.window.Width, info.window.Height - inc, true);
                     break;
                 case Shortcuts.NEXT_DISPLAY:
-                    var next = NextScreen(info.screen);
-                    //MoveWindow(handle, next.Bounds.X, next.Bounds.Y, info.window.Width, info.window.Height, true);
-                    MoveWindow(handle, (next.WorkingArea.X + next.WorkingArea.Width/2) - (info.window.Width / 2), (next.WorkingArea.Y + next.WorkingArea.Height/2) - (info.window.Height / 2), info.window.Width, info.window.Height, true);
+                    NextDisplay(handle, info);
+                    break;
+                default:
                     break;
             }
         }
 
+        private void NextDisplay(nint handle, ScreenInfo info)
+        {
+            if (Screen.AllScreens.Length == 1)
+            {
+                return; // Single screen, nowhere to move the window
+            }
+            var next = NextScreen(info.screen);
+            MoveWindow(handle, next.WorkingArea.X, next.WorkingArea.Y, info.window.Width, info.window.Height, true);
+            DoResizeWindow(Shortcuts.TOP_LEFT);
+            DoResizeWindow(Shortcuts.CENTER);
+        }
 
+        private static void MakeWider(nint handle, ScreenInfo info, int width, int inc)
+        {
+            var newX = (info.window.Left - (inc / 2) >= info.screen.WorkingArea.X ? info.window.Left - (inc / 2) : info.screen.WorkingArea.Left);
+            var newWidth = info.window.Width + inc;
+            if (info.window.Right + inc > width)
+            {
+                newWidth = width - info.window.Left + (inc / 2);
+            }
+            MoveWindow(handle, newX, info.window.Top, newWidth, info.window.Height, true);
+        }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -206,13 +217,9 @@ namespace WinWin
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            notifyIcon1.BalloonTipTitle = "Minimize to Tray App";
-            notifyIcon1.BalloonTipText = "You have successfully minimized your form.";
-
             if (FormWindowState.Minimized == this.WindowState)
             {
                 notifyIcon1.Visible = true;
-                notifyIcon1.ShowBalloonTip(500);
                 this.Hide();
             }
             else if (FormWindowState.Normal == this.WindowState)
