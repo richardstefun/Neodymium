@@ -1,9 +1,14 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection.Metadata;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Text;
-using static WinWin.WindowScreenInfo;
+using System.Text.Json;
+using static Neodymium.WindowScreenInfo;
 
-namespace WinWin
+namespace Neodymium
 {
     public partial class Main : Form
     {
@@ -60,7 +65,33 @@ namespace WinWin
         private const int SW_SHOWMINIMIZED = 2;
         private const int SW_SHOWMAXIMIZED = 3;
 
-        const int MODIFIER = 1 + 2 + 8; // Alt = 1, Ctrl = 2, Shift = 4, Win = 8
+        private Settings CurrentSettings;
+        private string ConfigPath;
+
+        public class Settings
+        {
+            // Define default modifier and keys for each shortcut
+            public bool ModifierAlt { get; set; } = true;
+            public bool ModifierCtrl { get; set; } = true;
+            public bool ModifierShift { get; set; } = false;
+            public bool ModifierWin { get; set; } = true;
+            public UInt16 ResizeStep { get; set; } = 50;
+            public int TopLeft { get; set; } = (int)Keys.U;
+            public int TopRight { get; set; } = (int)Keys.I;
+            public int BottomLeft { get; set; } = (int)Keys.J;
+            public int BottomRight { get; set; } = (int)Keys.K;
+            public int Left { get; set; } = (int)Keys.Left;
+            public int Right { get; set; } = (int)Keys.Right;
+            public int Top { get; set; } = (int)Keys.Up;
+            public int Bottom { get; set; } = (int)Keys.Down;
+            public int Center { get; set; } = (int)Keys.C;
+            public int Full { get; set; } = (int)Keys.Enter;
+            public int Wider { get; set; } = (int)Keys.W;
+            public int Taller { get; set; } = (int)Keys.E;
+            public int Narrower { get; set; } = (int)Keys.S;
+            public int Shorter { get; set; } = (int)Keys.D;
+            public int NextDisplay { get; set; } = (int)Keys.X;
+        }
 
         enum Shortcuts
         {
@@ -70,27 +101,79 @@ namespace WinWin
         public Main()
         {
             InitializeComponent();
+            string homePath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            ConfigPath = Path.Combine(homePath, ".neodymium.json");
+
+            var fromConfig = HotkeysFromConfig();
+
+            if (fromConfig != null)
+            {
+                CurrentSettings = fromConfig;
+            }
+            else
+            {
+                CurrentSettings = new Settings();
+
+                string jsonString = JsonSerializer.Serialize(CurrentSettings, new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                });
+
+                File.WriteAllText(ConfigPath, jsonString);
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private Settings? HotkeysFromConfig()
         {
-            RegisterHotKey(this.Handle, (int)Shortcuts.TOP_LEFT, MODIFIER, (int)Keys.U);
-            RegisterHotKey(this.Handle, (int)Shortcuts.TOP_RIGHT, MODIFIER, (int)Keys.I);
-            RegisterHotKey(this.Handle, (int)Shortcuts.BOTTOM_LEFT, MODIFIER, (int)Keys.J);
-            RegisterHotKey(this.Handle, (int)Shortcuts.BOTTOM_RIGHT, MODIFIER, (int)Keys.K);
-            RegisterHotKey(this.Handle, (int)Shortcuts.LEFT, MODIFIER, (int)Keys.Left);
-            RegisterHotKey(this.Handle, (int)Shortcuts.RIGHT, MODIFIER, (int)Keys.Right);
-            RegisterHotKey(this.Handle, (int)Shortcuts.TOP, MODIFIER, (int)Keys.Up);
-            RegisterHotKey(this.Handle, (int)Shortcuts.BOTTOM, MODIFIER, (int)Keys.Down);
-            RegisterHotKey(this.Handle, (int)Shortcuts.CENTER, MODIFIER, (int)Keys.C);
-            RegisterHotKey(this.Handle, (int)Shortcuts.FULL, MODIFIER, (int)Keys.Enter);
-            RegisterHotKey(this.Handle, (int)Shortcuts.WIDER, MODIFIER, (int)Keys.W);
-            RegisterHotKey(this.Handle, (int)Shortcuts.TALLER, MODIFIER, (int)Keys.E);
-            RegisterHotKey(this.Handle, (int)Shortcuts.NARROWER, MODIFIER, (int)Keys.S);
-            RegisterHotKey(this.Handle, (int)Shortcuts.SHORTER, MODIFIER, (int)Keys.D);
-            RegisterHotKey(this.Handle, (int)Shortcuts.NEXT_DISPLAY, MODIFIER, (int)Keys.X);
+            if (File.Exists(ConfigPath))
+            {
+                try
+                {
+                    string jsonString = File.ReadAllText(ConfigPath);
+                    return JsonSerializer.Deserialize<Settings>(jsonString);
+                }
+                catch { return null; }
+            }
+            return null;
         }
 
+        private async void InitializeMinimizeAfterDelay()
+        {
+            await Task.Delay(2000);
+            this.WindowState = FormWindowState.Minimized;
+            this.appStatusLabel.Text = "Running!\nYou can minimize me now!";
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            RegisterHotkeys();
+            InitializeMinimizeAfterDelay();
+        }
+
+        private void RegisterHotkeys()
+        {
+            // Alt = 1, Ctrl = 2, Shift = 4, Win = 8
+            int modifier = CurrentSettings.ModifierAlt ? 1 : 0;
+            modifier = CurrentSettings.ModifierCtrl ? modifier + 2 : modifier;
+            modifier = CurrentSettings.ModifierShift ? modifier + 4 : modifier;
+            modifier = CurrentSettings.ModifierWin ? modifier + 8 : modifier;
+
+            RegisterHotKey(this.Handle, (int)Shortcuts.TOP_LEFT, modifier, CurrentSettings.TopLeft);
+            RegisterHotKey(this.Handle, (int)Shortcuts.TOP_RIGHT, modifier, CurrentSettings.TopRight);
+            RegisterHotKey(this.Handle, (int)Shortcuts.BOTTOM_LEFT, modifier, CurrentSettings.BottomLeft);
+            RegisterHotKey(this.Handle, (int)Shortcuts.BOTTOM_RIGHT, modifier, CurrentSettings.BottomRight);
+            RegisterHotKey(this.Handle, (int)Shortcuts.LEFT, modifier, CurrentSettings.Left);
+            RegisterHotKey(this.Handle, (int)Shortcuts.RIGHT, modifier, CurrentSettings.Right);
+            RegisterHotKey(this.Handle, (int)Shortcuts.TOP, modifier, CurrentSettings.Top);
+            RegisterHotKey(this.Handle, (int)Shortcuts.BOTTOM, modifier, CurrentSettings.Bottom);
+            RegisterHotKey(this.Handle, (int)Shortcuts.CENTER, modifier, CurrentSettings.Center);
+            RegisterHotKey(this.Handle, (int)Shortcuts.FULL, modifier, CurrentSettings.Full);
+            RegisterHotKey(this.Handle, (int)Shortcuts.WIDER, modifier, CurrentSettings.Wider);
+            RegisterHotKey(this.Handle, (int)Shortcuts.TALLER, modifier, CurrentSettings.Taller);
+            RegisterHotKey(this.Handle, (int)Shortcuts.NARROWER, modifier, CurrentSettings.Narrower);
+            RegisterHotKey(this.Handle, (int)Shortcuts.SHORTER, modifier, CurrentSettings.Shorter);
+            RegisterHotKey(this.Handle, (int)Shortcuts.NEXT_DISPLAY, modifier, CurrentSettings.NextDisplay);
+        }
 
         protected override void WndProc(ref Message m)
         {
@@ -130,7 +213,7 @@ namespace WinWin
             int X = info.screen.WorkingArea.X;
             int Y = info.screen.WorkingArea.Y;
 
-            int inc = 50;
+            int inc = CurrentSettings.ResizeStep;
 
             DeMaximizeActiveWindow(handle);
 
@@ -229,5 +312,34 @@ namespace WinWin
             }
         }
 
+        private void OpenLink(string link)
+        {
+            Process.Start("explorer.exe", link);
+        }
+
+        private void openConfig_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("explorer.exe", " /select, " + ConfigPath));
+        }
+
+        private void keyReference_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenLink("https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes");
+        }
+
+        private void gitHub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenLink("https://github.com/richardstefun/Neodymium");
+        }
+
+        private void supportProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            OpenLink("https://ko-fi.com/richardstefun");
+        }
+
+        private void buttonSupport_Click(object sender, EventArgs e)
+        {
+            OpenLink("https://ko-fi.com/richardstefun");
+        }
     }
 }

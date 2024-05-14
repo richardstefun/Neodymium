@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace WinWin
+namespace Neodymium
 {
     internal static class Program
     {

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Text;
 
-namespace WinWin
+namespace Neodymium
 {
     partial class Main
     {
@@ -38,13 +38,11 @@ namespace WinWin
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             notifyIcon1 = new NotifyIcon(components);
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            label7 = new Label();
+            appStatusLabel = new Label();
+            openConfig = new Button();
+            keyReference = new LinkLabel();
+            gitHub = new LinkLabel();
+            buttonSupport = new Button();
             SuspendLayout();
             // 
             // notifyIcon1
@@ -54,106 +52,75 @@ namespace WinWin
             notifyIcon1.Visible = true;
             notifyIcon1.MouseDoubleClick += notifyIcon1_MouseDoubleClick;
             // 
-            // label1
+            // appStatusLabel
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Location = new Point(14, 12);
-            label1.Name = "label1";
-            label1.Size = new Size(343, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Neodymium is running. You can minimize me now!";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            appStatusLabel.AutoSize = true;
+            appStatusLabel.Location = new Point(12, 9);
+            appStatusLabel.Name = "appStatusLabel";
+            appStatusLabel.Size = new Size(203, 25);
+            appStatusLabel.TabIndex = 7;
+            appStatusLabel.Text = "Minimizing into taskbar!";
             // 
-            // label2
+            // openConfig
             // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Location = new Point(14, 48);
-            label2.Name = "label2";
-            label2.Size = new Size(317, 20);
-            label2.TabIndex = 1;
-            label2.Text = "To manage active window, use Ctrl+Win+Alt +";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            openConfig.Location = new Point(13, 70);
+            openConfig.Name = "openConfig";
+            openConfig.Size = new Size(163, 34);
+            openConfig.TabIndex = 8;
+            openConfig.Text = "Open config path";
+            openConfig.UseVisualStyleBackColor = true;
+            openConfig.Click += openConfig_Click;
             // 
-            // label3
+            // keyReference
             // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Location = new Point(14, 81);
-            label3.Name = "label3";
-            label3.Size = new Size(121, 120);
-            label3.TabIndex = 2;
-            label3.Text = "U - top left\r\nI   - top right\r\nJ   - bottom left\r\nK  - bottom right\r\nC  - center\r\nEnter - fill";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
+            keyReference.AutoSize = true;
+            keyReference.Location = new Point(276, 34);
+            keyReference.Name = "keyReference";
+            keyReference.Size = new Size(125, 25);
+            keyReference.TabIndex = 10;
+            keyReference.TabStop = true;
+            keyReference.Text = "Keys reference";
+            keyReference.LinkClicked += keyReference_LinkClicked;
             // 
-            // label4
+            // gitHub
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Location = new Point(14, 209);
-            label4.Name = "label4";
-            label4.Size = new Size(188, 40);
-            label4.TabIndex = 3;
-            label4.Text = "Arrow keys move windows \r\nto coresponding halves";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
+            gitHub.AutoSize = true;
+            gitHub.Location = new Point(333, 9);
+            gitHub.Name = "gitHub";
+            gitHub.Size = new Size(68, 25);
+            gitHub.TabIndex = 11;
+            gitHub.TabStop = true;
+            gitHub.Text = "GitHub";
+            gitHub.LinkClicked += gitHub_LinkClicked;
             // 
-            // label5
+            // buttonSupport
             // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Location = new Point(211, 81);
-            label5.Name = "label5";
-            label5.Size = new Size(98, 80);
-            label5.TabIndex = 4;
-            label5.Text = "W - wider\r\nS   - narrower\r\nE  - taller\r\nD  - shorter";
-            label5.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label6.AutoSize = true;
-            label6.Location = new Point(211, 181);
-            label6.Name = "label6";
-            label6.Size = new Size(114, 20);
-            label6.TabIndex = 5;
-            label6.Text = "X   - next screen";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 8.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.ControlLight;
-            label7.Location = new Point(211, 215);
-            label7.Name = "label7";
-            label7.Size = new Size(135, 38);
-            label7.TabIndex = 6;
-            label7.Text = "v0.2.2\r\nRichard Stefun 2024";
-            label7.TextAlign = ContentAlignment.MiddleRight;
+            buttonSupport.BackColor = Color.Gold;
+            buttonSupport.Location = new Point(215, 70);
+            buttonSupport.Name = "buttonSupport";
+            buttonSupport.Size = new Size(186, 34);
+            buttonSupport.TabIndex = 13;
+            buttonSupport.Text = "Support this project!";
+            buttonSupport.UseVisualStyleBackColor = false;
+            buttonSupport.Click += buttonSupport_Click;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(372, 268);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            ClientSize = new Size(413, 117);
+            Controls.Add(buttonSupport);
+            Controls.Add(gitHub);
+            Controls.Add(keyReference);
+            Controls.Add(openConfig);
+            Controls.Add(appStatusLabel);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
-            MaximumSize = new Size(390, 315);
-            MinimumSize = new Size(390, 315);
             Name = "Main";
-            Text = "Neodymium";
-            Load += Form1_Load;
+            Text = "Neodymium v0.3.0";
+            Load += Main_Load;
             Resize += Form1_Resize;
             ResumeLayout(false);
             PerformLayout();
@@ -164,12 +131,11 @@ namespace WinWin
         #endregion
 
         private NotifyIcon notifyIcon1;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label7;
+        private Label appStatusLabel;
+        private Button openConfig;
+        private LinkLabel keyReference;
+        private LinkLabel gitHub;
+        private LinkLabel supportProjectLink;
+        private Button buttonSupport;
     }
 }

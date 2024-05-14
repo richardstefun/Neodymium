@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static WinWin.Main;
-using static WinWin.WindowScreenInfo;
+using static Neodymium.Main;
+using static Neodymium.WindowScreenInfo;
 
-namespace WinWin
+namespace Neodymium
 {
     public class WindowScreenInfo
     {
