@@ -15,7 +15,7 @@ Some of Neodymium features are:
 
 ## Installation
 
-Download the latest version from Releases and run the app from the Start menu. The app is automatically minimized into taskbar icon. To quit Neodymium, double click the icon and close the window.
+Download & install the latest version from Releases. After the installation is complete, you can launch the app from the Start menu. The app is automatically minimized into its taskbar icon. To quit Neodymium, double click the icon and close the window.
 
 If you want to run Neodymium on startup, copy a shortcut to the app to:
 
