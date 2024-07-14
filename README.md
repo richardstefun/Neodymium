@@ -51,9 +51,10 @@ The default shortcuts can be changed by modifying the `.neodymium.json` configur
 
 Since this app is something of a weekend project of mine, there are some bugs that needs to be fixed:
 
- - Improve resize guards (Don't allow windows to be resized past the display size)
+ - Improve resize guards (Don't allow windows to be manually resized past the display size)
  - Unsnap to default size
  - Start as an admin by default to allow resizing of all windows
+ - Remove the resized window's margin
 
 ## Contributing
 
