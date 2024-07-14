@@ -42,7 +42,6 @@ namespace Neodymium
             openConfig = new Button();
             keyReference = new LinkLabel();
             gitHub = new LinkLabel();
-            buttonSupport = new Button();
             SuspendLayout();
             // 
             // notifyIcon1
@@ -55,17 +54,19 @@ namespace Neodymium
             // appStatusLabel
             // 
             appStatusLabel.AutoSize = true;
-            appStatusLabel.Location = new Point(12, 9);
+            appStatusLabel.Location = new Point(11, 9);
+            appStatusLabel.Margin = new Padding(2, 0, 2, 0);
             appStatusLabel.Name = "appStatusLabel";
-            appStatusLabel.Size = new Size(203, 25);
+            appStatusLabel.Size = new Size(135, 15);
             appStatusLabel.TabIndex = 7;
             appStatusLabel.Text = "Minimizing into taskbar!";
             // 
             // openConfig
             // 
-            openConfig.Location = new Point(13, 70);
+            openConfig.Location = new Point(11, 53);
+            openConfig.Margin = new Padding(2);
             openConfig.Name = "openConfig";
-            openConfig.Size = new Size(163, 34);
+            openConfig.Size = new Size(128, 28);
             openConfig.TabIndex = 8;
             openConfig.Text = "Open config path";
             openConfig.UseVisualStyleBackColor = true;
@@ -74,9 +75,10 @@ namespace Neodymium
             // keyReference
             // 
             keyReference.AutoSize = true;
-            keyReference.Location = new Point(276, 34);
+            keyReference.Location = new Point(194, 66);
+            keyReference.Margin = new Padding(2, 0, 2, 0);
             keyReference.Name = "keyReference";
-            keyReference.Size = new Size(125, 25);
+            keyReference.Size = new Size(83, 15);
             keyReference.TabIndex = 10;
             keyReference.TabStop = true;
             keyReference.Text = "Keys reference";
@@ -85,41 +87,30 @@ namespace Neodymium
             // gitHub
             // 
             gitHub.AutoSize = true;
-            gitHub.Location = new Point(333, 9);
+            gitHub.Location = new Point(232, 51);
+            gitHub.Margin = new Padding(2, 0, 2, 0);
             gitHub.Name = "gitHub";
-            gitHub.Size = new Size(68, 25);
+            gitHub.Size = new Size(45, 15);
             gitHub.TabIndex = 11;
             gitHub.TabStop = true;
             gitHub.Text = "GitHub";
             gitHub.LinkClicked += gitHub_LinkClicked;
             // 
-            // buttonSupport
-            // 
-            buttonSupport.BackColor = Color.Gold;
-            buttonSupport.Location = new Point(215, 70);
-            buttonSupport.Name = "buttonSupport";
-            buttonSupport.Size = new Size(186, 34);
-            buttonSupport.TabIndex = 13;
-            buttonSupport.Text = "Support this project!";
-            buttonSupport.UseVisualStyleBackColor = false;
-            buttonSupport.Click += buttonSupport_Click;
-            // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(413, 117);
-            Controls.Add(buttonSupport);
+            ClientSize = new Size(288, 92);
             Controls.Add(gitHub);
             Controls.Add(keyReference);
             Controls.Add(openConfig);
             Controls.Add(appStatusLabel);
+            ForeColor = SystemColors.ControlText;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             Name = "Main";
-            Text = "Neodymium v0.3.0";
+            Text = "Neodymium v0.3.1";
             Load += Main_Load;
             Resize += Form1_Resize;
             ResumeLayout(false);
@@ -136,6 +127,5 @@ namespace Neodymium
         private LinkLabel keyReference;
         private LinkLabel gitHub;
         private LinkLabel supportProjectLink;
-        private Button buttonSupport;
     }
 }

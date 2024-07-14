@@ -331,15 +331,5 @@ namespace Neodymium
         {
             OpenLink("https://github.com/richardstefun/Neodymium");
         }
-
-        private void supportProjectLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            OpenLink("https://ko-fi.com/richardstefun");
-        }
-
-        private void buttonSupport_Click(object sender, EventArgs e)
-        {
-            OpenLink("https://ko-fi.com/richardstefun");
-        }
     }
 }
