@@ -110,7 +110,7 @@ namespace Neodymium
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Main";
-            Text = "Neodymium v0.3.1";
+            Text = "Neodymium v0.3.2";
             Load += Main_Load;
             Resize += Form1_Resize;
             ResumeLayout(false);

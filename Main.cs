@@ -1,10 +1,5 @@
-using System;
 using System.Diagnostics;
-using System.IO;
-using System.Reflection.Metadata;
-using System.Resources;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.Json;
 using static Neodymium.WindowScreenInfo;
 
