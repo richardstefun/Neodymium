@@ -1,6 +1,8 @@
 ﻿
 # Neodymium 🧲
 
+![neodymiumGif](https://github.com/user-attachments/assets/26fc7c5d-187f-4fb8-b5a8-6594bf58a732)
+
 Move and resize windows using keyboard shortcuts!
 
 The app is inspired by tools like Rectangle for MacOS. Although the Windows OS supports window snapping and keyboard shortcuts, this app aims to complement those.
